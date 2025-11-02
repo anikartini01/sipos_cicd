@@ -54,5 +54,6 @@ Route::get('/jadwal/{id}/edit', [JadwalPosyanduController::class, 'edit'])->name
 Route::put('/jadwal/{id}', [JadwalPosyanduController::class, 'update'])->name('jadwal.update');
 Route::delete('/jadwal/{id}', [JadwalPosyanduController::class, 'destroy'])->name('jadwal.destroy');
 
+Route::get('/jadwal/{id}', [JadwalPosyanduController::class, 'show'])->name('jadwal.show');
 
 

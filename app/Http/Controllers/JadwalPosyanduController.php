@@ -9,9 +9,10 @@ use Carbon\Carbon;
 class JadwalPosyanduController extends Controller
 {
 
-    public function index()
+    public function show($id)
     {
-        //  
+        $jadwal = JadwalPosyandu::findOrFail($id);
+        return view('kader.jadwal.show', compact('jadwal'));
     }
 
     /**
@@ -37,7 +38,7 @@ class JadwalPosyanduController extends Controller
         JadwalPosyandu::create($validated);
         return redirect()->route('pemeriksaan.index', ['tab' => 'jadwal'])->with('success', 'Jadwal berhasil ditambahkan!');
     }
-    
+
     /**
      * Form edit jadwal.
      */

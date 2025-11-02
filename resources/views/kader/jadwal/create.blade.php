@@ -7,8 +7,15 @@
 
             <div class="mb-4">
                 <label class="block text-gray-700 mb-1">Keterangan</label>
-                <input type="text" name="keterangan" value="{{ old('keterangan') }}" required
+                <select name="keterangan" required
                     class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-posyanduu">
+                    <option value="">-- Pilih Keterangan --</option>
+                    <option value="Pemeriksaan Balita"
+                        {{ old('keterangan') == 'Pemeriksaan Balita' ? 'selected' : '' }}>Pemeriksaan Balita</option>
+                    <option value="Pemeriksaan Ibu Hamil"
+                        {{ old('keterangan') == 'Pemeriksaan Ibu Hamil' ? 'selected' : '' }}>Pemeriksaan Ibu Hamil
+                    </option>
+                </select>
             </div>
 
             <div class="mb-4">
