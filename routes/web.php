@@ -8,6 +8,7 @@ use App\Http\Controllers\PesertaController;
 use App\Http\Controllers\IbuHamilController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PemeriksaanController;
+use App\Http\Controllers\JadwalPosyanduController;
 
 // register view
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
@@ -46,7 +47,12 @@ Route::get('/pemeriksaan/search', [PemeriksaanController::class, 'searchPeserta'
 // Hapus pemeriksaan
 Route::delete('/pemeriksaan/{id}', [PemeriksaanController::class, 'destroy'])->name('pemeriksaan.destroy');
 
-
+// jadwal
+Route::get('/jadwal/create', [JadwalPosyanduController::class, 'create'])->name('jadwal.create');
+Route::post('/jadwal', [JadwalPosyanduController::class, 'store'])->name('jadwal.store');
+Route::get('/jadwal/{id}/edit', [JadwalPosyanduController::class, 'edit'])->name('jadwal.edit');
+Route::put('/jadwal/{id}', [JadwalPosyanduController::class, 'update'])->name('jadwal.update');
+Route::delete('/jadwal/{id}', [JadwalPosyanduController::class, 'destroy'])->name('jadwal.destroy');
 
 
 

@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pemeriksaan;
 use App\Models\Balita;
 use App\Models\IbuHamil;
+use App\Models\Pemeriksaan;
 use Illuminate\Http\Request;
+use App\Models\JadwalPosyandu;
 
 class PemeriksaanController extends Controller
 {
     public function index()
     {
+        // ambil data jadwal
+        $jadwals = JadwalPosyandu::all();
         $pemeriksaans = Pemeriksaan::with(['balita', 'ibu_hamil'])->get();
-        return view('kader.pemeriksaan', compact('pemeriksaans'));
+        return view('kader.pemeriksaan', compact('pemeriksaans', 'jadwals'));
     }
     public function create()
     {

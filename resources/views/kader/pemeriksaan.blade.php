@@ -22,37 +22,38 @@
 
         <!-- Tabs -->
         <div x-data="{
-            activeTab: 'pemeriksaan',
+            activeTab: new URLSearchParams(window.location.search).get('tab') || 'pemeriksaan',
             underlineLeft: 0,
             underlineWidth: 0,
             updateUnderline($el) {
                 this.underlineLeft = $el.offsetLeft;
                 this.underlineWidth = $el.offsetWidth;
             }
-        }" x-init="$nextTick(() => { updateUnderline($refs.pemeriksaanTab); })" class="bg-white rounded-xl card-shadow mb-6 p-4">
+        }" x-init="$nextTick(() => {
+            const tab = new URLSearchParams(window.location.search).get('tab') || 'pemeriksaan';
+            updateUnderline($refs[tab + 'Tab']);
+        })" class="bg-white rounded-xl card-shadow mb-6 p-4">
 
-            <div class="border-b border-gray-200 relative overflow-hidden">
-                <nav class="flex -mb-px justify-start">
-                    <!-- Tab Pemeriksaan -->
-                    <button x-ref="pemeriksaanTab" @click="activeTab = 'pemeriksaan'; updateUnderline($el)"
-                        :class="activeTab === 'pemeriksaan' ? 'text-posyanduu' : 'text-gray-500 hover:text-gray-700'"
-                        class="relative py-3 px-6 text-center font-medium text-sm whitespace-nowrap transition-all">
-                        Pemeriksaan
-                    </button>
+            <nav class="flex -mb-px justify-start relative border-b border-gray-200">
+                <!-- Tab Pemeriksaan -->
+                <button x-ref="pemeriksaanTab" @click="activeTab = 'pemeriksaan'; updateUnderline($el)"
+                    :class="activeTab === 'pemeriksaan' ? 'text-posyanduu' : 'text-gray-500 hover:text-gray-700'"
+                    class="relative py-3 px-6 text-center font-medium text-sm whitespace-nowrap transition-all">
+                    Pemeriksaan
+                </button>
 
-                    <!-- Tab Jadwal -->
-                    <button x-ref="jadwalTab" @click="activeTab = 'jadwal'; updateUnderline($el)"
-                        :class="activeTab === 'jadwal' ? 'text-posyanduu' : 'text-gray-500 hover:text-gray-700'"
-                        class="relative py-3 px-6 text-center font-medium text-sm whitespace-nowrap transition-all">
-                        Jadwal Posyandu
-                    </button>
+                <!-- Tab Jadwal -->
+                <button x-ref="jadwalTab" @click="activeTab = 'jadwal'; updateUnderline($el)"
+                    :class="activeTab === 'jadwal' ? 'text-posyanduu' : 'text-gray-500 hover:text-gray-700'"
+                    class="relative py-3 px-6 text-center font-medium text-sm whitespace-nowrap transition-all">
+                    Jadwal Posyandu
+                </button>
 
-                    <!-- Garis bawah animasi -->
-                    <div class="absolute bottom-0 h-0.5 bg-posyanduu transition-all duration-300"
-                        :style="`left: ${underlineLeft}px; width: ${underlineWidth}px;`">
-                    </div>
-                </nav>
-            </div>
+                <!-- Garis bawah animasi -->
+                <div class="absolute bottom-0 h-0.5 bg-posyanduu transition-all duration-300"
+                    :style="`left: ${underlineLeft}px; width: ${underlineWidth}px;`"></div>
+            </nav>
+
 
             <!-- Konten Tabs -->
             <div class="mt-6 bg-white rounded-xl border border-gray-200 shadow-sm p-6">
@@ -138,41 +139,61 @@
                 <!-- Tab Jadwal (Hardcode) -->
                 <div x-show="activeTab === 'jadwal'" x-transition>
                     <div class="flex justify-between items-center">
-                        <h1 class="text-xl font-bold text-gray-900">Kegiatan Mendatang</h1>
-                        <a href="#" class="bg-button text-white px-4 py-2 rounded-md hover:bg-buttonhover">
+                        <h1 class="text-xl font-bold text-gray-800">Kegiatan Mendatang</h1>
+                        <a href="{{ route('jadwal.create') }}"
+                            class="bg-button text-white px-4 py-2 rounded-md hover:bg-buttonhover">
                             <i class="fa-solid fa-calendar-plus mr-2"></i>Tambah Jadwal
                         </a>
                     </div>
 
-                    <div class="flex items-center p-4 border border-gray-200 rounded-lg mt-4">
-                        <div
-                            class="bg-posyanduu text-white rounded-lg w-12 h-12 flex flex-col items-center justify-center">
-                            <span class="font-bold">25</span>
-                        </div>
-                        <div class="ml-4 flex-1">
-                            <h3 class="font-medium">Posyandu Balita Rutin</h3>
-                            <p class="text-sm text-gray-600">08:00 - 10:00 • Balai Desa</p>
-                        </div>
-                        <div class="flex space-x-2">
-                            <button class="text-posyanduu hover:text-posyanduDark"><i class="fas fa-edit"></i></button>
-                            <button class="text-danger hover:text-red-600"><i class="fas fa-trash"></i></button>
-                        </div>
-                    </div>
+                    <div class="mt-6">
+                        @forelse ($jadwals as $jadwal)
+                            <div class="flex items-center p-4 border border-gray-200 rounded-lg mt-4">
+                                <!-- Kotak tanggal -->
+                                <div
+                                    class="bg-posyanduu text-white rounded-lg w-12 h-12 flex flex-col items-center justify-center">
+                                    <span class="font-bold">
+                                        {{ \Carbon\Carbon::parse($jadwal->waktu_mulai)->format('d') }}
+                                    </span>
+                                </div>
 
-                    <div class="flex items-center p-4 border border-gray-200 rounded-lg mt-4">
-                        <div class="bg-tggl text-white rounded-lg w-12 h-12 flex flex-col items-center justify-center">
-                            <span class="font-bold">27</span>
-                        </div>
-                        <div class="ml-4 flex-1">
-                            <h3 class="font-medium">Kelas Ibu Hamil</h3>
-                            <p class="text-sm text-gray-600">08:00 - 10:00 • Aula Posyandu</p>
-                        </div>
-                        <div class="flex space-x-2">
-                            <button class="text-posyanduu hover:text-posyanduDark"><i class="fas fa-edit"></i></button>
-                            <button class="text-danger hover:text-red-600"><i class="fas fa-trash"></i></button>
-                        </div>
+                                <!-- Informasi jadwal -->
+                                <div class="ml-4 flex-1">
+                                    <h3 class="font-medium">{{ $jadwal->keterangan }}</h3>
+                                    <p class="text-sm text-gray-600">
+                                        {{ \Carbon\Carbon::parse($jadwal->waktu_mulai)->format('H:i') }}
+                                        -
+                                        {{ \Carbon\Carbon::parse($jadwal->waktu_selesai)->format('H:i') }}
+                                        • {{ $jadwal->lokasi }}
+                                    </p>
+                                </div>
+
+                                <!-- Tombol aksi -->
+                                <div class="flex space-x-2">
+                                    <a href="{{ route('jadwal.edit', $jadwal->id) }}"
+                                        class="text-posyanduu hover:text-posyanduDark">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <form action="{{ route('jadwal.destroy', $jadwal->id) }}" method="POST"
+                                        onsubmit="return confirm('Yakin ingin hapus jadwal ini?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-danger hover:text-red-600">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        @empty
+                            <div class="text-center text-gray-500 mt-10">
+                                <i class="fa-solid fa-calendar-xmark text-4xl mb-2"></i>
+                                <p class="text-lg font-medium">Belum ada jadwal posyandu.</p>
+                                <p class="text-sm">Silakan tambahkan jadwal baru untuk ditampilkan di sini.</p>
+                            </div>
+                        @endforelse
                     </div>
                 </div>
+
             </div>
         </div>
     </main>

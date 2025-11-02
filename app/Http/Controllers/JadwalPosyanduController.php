@@ -1,0 +1,89 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\JadwalPosyandu;
+use Illuminate\Http\Request;
+use Carbon\Carbon;
+
+class JadwalPosyanduController extends Controller
+{
+
+    public function index()
+    {
+        //  
+    }
+
+    /**
+     * Form tambah jadwal baru.
+     */
+    public function create()
+    {
+        return view('kader.jadwal.create');
+    }
+
+    /**
+     * Simpan jadwal baru.
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'keterangan' => 'required|string|max:255',
+            'lokasi' => 'required|string|max:255',
+            'waktu_mulai' => 'required|date',
+            'waktu_selesai' => 'required|date|after:waktu_mulai',
+        ]);
+
+        JadwalPosyandu::create([
+            'keterangan' => $request->keterangan,
+            'lokasi' => $request->lokasi,
+            'waktu_mulai' => Carbon::parse($request->waktu_mulai),
+            'waktu_selesai' => Carbon::parse($request->waktu_selesai),
+        ]);
+
+        return redirect()->route('pemeriksaan.index', ['tab' => 'jadwal'])->with('success', 'Jadwal berhasil ditambahkan!');
+    }
+
+    /**
+     * Form edit jadwal.
+     */
+    public function edit($id)
+    {
+        $jadwal = JadwalPosyandu::findOrFail($id);
+        return view('kader.jadwal.edit', compact('jadwal'));
+    }
+
+    /**
+     * Update jadwal.
+     */
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'keterangan' => 'required|string|max:255',
+            'lokasi' => 'required|string|max:255',
+            'waktu_mulai' => 'required|date',
+            'waktu_selesai' => 'required|date|after:waktu_mulai',
+        ]);
+
+        $jadwal = JadwalPosyandu::findOrFail($id);
+        $jadwal->update([
+            'keterangan' => $request->keterangan,
+            'lokasi' => $request->lokasi,
+            'waktu_mulai' => Carbon::parse($request->waktu_mulai),
+            'waktu_selesai' => Carbon::parse($request->waktu_selesai),
+        ]);
+
+        return redirect()->route('pemeriksaan.index', ['tab' => 'jadwal'])->with('success', 'Jadwal berhasil diperbarui!');
+    }
+
+    /**
+     * Hapus jadwal.
+     */
+    public function destroy($id)
+    {
+        $jadwal = JadwalPosyandu::findOrFail($id);
+        $jadwal->delete();
+
+        return redirect()->route('pemeriksaan.index', ['tab' => 'jadwal'])->with('success', 'Jadwal berhasil dihapus!');
+    }
+}
