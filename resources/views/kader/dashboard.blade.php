@@ -51,7 +51,7 @@
             </div>
         </div>
 
-        <div class="bg-white rounded-xl p-4 md:p-6 card-shadow">
+        <div class="bg-white rounded-xl p-4 md:p-6 shadow-md">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-lg font-bold text-gray-800">Jadwal Mendatang</h2>
             </div>
