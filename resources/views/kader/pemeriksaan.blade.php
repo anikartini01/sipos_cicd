@@ -172,7 +172,6 @@
                             <button class="text-danger hover:text-red-600"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
