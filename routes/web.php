@@ -56,4 +56,8 @@ Route::delete('/jadwal/{id}', [JadwalPosyanduController::class, 'destroy'])->nam
 
 Route::get('/jadwal/{id}', [JadwalPosyanduController::class, 'show'])->name('jadwal.show');
 
+// buatkan view function 
+Route::get('/laporan', function () {
+    return view('kader.laporan.index');
+});
 
