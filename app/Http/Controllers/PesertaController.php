@@ -8,6 +8,15 @@ use Illuminate\Http\Request;
 
 class PesertaController extends Controller
 {
+    public function index()
+    {
+        $balitas = Balita::all();
+        $ibu_hamils = IbuHamil::all();
+        $totalBalita = Balita::count();
+        $totalIbuHamil = IbuHamil::count();
+        return view('kader.data-peserta', compact('balitas', 'ibu_hamils', 'totalBalita', 'totalIbuHamil'));
+
+    }
     public function create()
     {
         return view('kader.tambah-data');

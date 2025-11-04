@@ -29,7 +29,7 @@ Route::middleware(['auth', 'role:pengguna'])->prefix('pengguna')->group(function
     Route::get('/dashboard', [DashboardController::class, 'pengguna'])->name('pengguna.dashboard');
 });
 // Menampilkan Data Peserta yang Terdaftar ya
-Route::get('/data', [ViewData::class, 'index'])->name('view.data');
+Route::get('/data', [PesertaController::class, 'index'])->name('view.data');
 
 // Update data
 Route::get('/peserta/edit/{kategori}/{id}', [PesertaController::class, 'edit'])->name('peserta.edit');
