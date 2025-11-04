@@ -4,6 +4,7 @@ use App\Http\Controllers\ViewData;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PesertaController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PemeriksaanController;
 use App\Http\Controllers\JadwalPosyanduController;
@@ -50,6 +51,8 @@ Route::get('/pemeriksaan/show/{id}', [PemeriksaanController::class, 'show'])->na
 
 
 // Hapus pemeriksaan
+Route::get('/pemeriksaan/{id}/edit', [PemeriksaanController::class, 'edit'])->name('pemeriksaan.edit');
+Route::put('/pemeriksaan/{id}', [PemeriksaanController::class, 'update'])->name('pemeriksaan.update');
 Route::delete('/pemeriksaan/{id}', [PemeriksaanController::class, 'destroy'])->name('pemeriksaan.destroy');
 
 // jadwal
@@ -65,4 +68,5 @@ Route::get('/jadwal/{id}', [JadwalPosyanduController::class, 'show'])->name('jad
 Route::get('/laporan', function () {
     return view('kader.laporan.index');
 });
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 

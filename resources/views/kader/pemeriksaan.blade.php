@@ -113,7 +113,8 @@
                                                 class="text-blue-600 hover:text-blue-800">
                                                 <i class="fas fa-eye"></i>
                                             </a>
-                                            <a href="#" class="text-warning hover:text-yellow-600"><i
+                                            <a href="{{ route('pemeriksaan.edit', $p->id) }}"
+                                                class="text-warning hover:text-yellow-600"><i
                                                     class="fas fa-edit"></i></a>
                                             <form action="{{ route('pemeriksaan.destroy', $p->id) }}" method="POST"
                                                 class="inline">

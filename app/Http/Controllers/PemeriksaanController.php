@@ -86,10 +86,33 @@ class PemeriksaanController extends Controller
         $pemeriksaan = Pemeriksaan::with(['balita', 'ibu_hamil'])->findOrFail($id);
         return view('kader.detail-pemeriksaan', compact('pemeriksaan'));
     }
+    // Buatkan form edit 
+    public function edit($id)
+    {
+        $pemeriksaan = Pemeriksaan::with(['balita', 'ibu_hamil'])->findOrFail($id);
+        return view('kader.edit-pemeriksaan', compact('pemeriksaan'));
+    }
 
+     public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'tanggal' => 'required|date',
+            'berat_badan_balita' => 'nullable|integer|min:0',
+            'tinggi_badan' => 'nullable|integer|min:0',
+            'status_gizi' => 'nullable|in:Gizi Baik,Gizi Buruk,Stunting',
+            'berat_badan_ibu' => 'nullable|integer|min:0',
+            'tekanan_sistolik' => 'nullable|integer|min:0|max:300',
+            'tekanan_diastolik' => 'nullable|integer|min:0|max:200',
+            'usia_kehamilan' => 'nullable|integer|min:0',
+            'status_ibu' => 'nullable|in:Kondisi Baik,Anemia',
+        ]);
 
+        $pemeriksaan = Pemeriksaan::findOrFail($id);
+        $pemeriksaan->update($validated);
 
-    // Hapus pemeriksaan
+        return redirect()->route('pemeriksaan.index')->with('success', 'Data pemeriksaan berhasil diperbarui.');
+    }
+
     public function destroy($id)
     {
         $pemeriksaan = Pemeriksaan::findOrFail($id);
