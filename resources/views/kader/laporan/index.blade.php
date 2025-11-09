@@ -61,8 +61,36 @@
                                     <p class="text-xs opacity-75" x-text="'NIK: ' + item.nik"></p>
                                 </div>
                             </div>
+                            <div class="flex-shrink-0 text-right">
+                                <span class="text-xs font-medium text-right"
+                                    :class="item.status_pemeriksaan === 'Belum terperiksa' ? 'text-red-600' :
+                                        'text-green-600'"
+                                    x-text="item.status_pemeriksaan"></span>
+                            </div>
                         </div>
                     </template>
+
+                    {{-- validasi pemeriksaan  --}}
+                    {{-- <template x-for="item in results" :key="item.tipe + item.id">
+                        <div @click="showDetail(item)" class="p-4 rounded-lg cursor-pointer transition-all border"
+                            :class="item.tipe === 'balita' ?
+                                'bg-blue-50 border-blue-100 hover:bg-blue-100 text-blue-900' :
+                                'bg-pink-50 border-pink-100 hover:bg-pink-100 text-pink-900'">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="font-semibold" x-text="item.nama"></p>
+                                    <p class="text-xs opacity-75" x-text="'NIK: ' + item.nik"></p>
+                                </div>
+                                <div>
+                                    <span class="text-xs font-medium"
+                                        :class="item.status_pemeriksaan === 'Belum terperiksa' ? 'text-red-600' :
+                                            'text-green-600'"
+                                        x-text="item.status_pemeriksaan"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </template> --}}
+
                 </div>
             </div>
 

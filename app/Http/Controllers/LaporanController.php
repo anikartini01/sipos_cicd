@@ -6,6 +6,7 @@ use App\Models\Balita;
 use App\Models\IbuHamil;
 use App\Models\Pemeriksaan;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class LaporanController extends Controller
 {
@@ -20,11 +21,24 @@ class LaporanController extends Controller
 
         $balita = Balita::where('nama_balita', 'like', "%$q%")
             ->orWhere('nik', 'like', "%$q%")
-            ->get(['id', 'nik', 'nama_balita as nama']);
+            ->get(['id', 'nik', 'nama_balita as nama'])
+            ->map(function ($b) {
+                // cek pemeriksaan terakhir
+                $pemeriksaan = Pemeriksaan::where('balita_id', $b->id)->latest()->first();
+                $b->status_pemeriksaan = $pemeriksaan ? 'Sudah diperiksa' : 'Belum terperiksa';
+                return $b;
+            });
+
 
         $ibu = IbuHamil::where('nama_ibu_hamil', 'like', "%$q%")
             ->orWhere('nik_ibu_hamil', 'like', "%$q%")
-            ->get(['id', 'nik_ibu_hamil as nik', 'nama_ibu_hamil as nama']);
+            ->get(['id', 'nik_ibu_hamil as nik', 'nama_ibu_hamil as nama'])
+            ->map(function ($i) {
+                // cek pemeriksaan terakhir
+                $pemeriksaan = Pemeriksaan::where('ibu_hamil_id', $i->id)->latest()->first();
+                $i->status_pemeriksaan = $pemeriksaan ? 'Sudah diperiksa' : 'Belum terperiksa';
+                return $i;
+            });
 
         return response()->json([
             'balita' => $balita,
@@ -80,6 +94,23 @@ class LaporanController extends Controller
         }
 
         return response()->json(['error' => 'Tipe tidak dikenali'], 400);
+    }
+
+    public function exportPdf($tipe, $id)
+    {
+        if ($tipe === 'balita') {
+            $data = Balita::findOrFail($id);
+            $pemeriksaan = Pemeriksaan::where('balita_id', $id)->latest()->first();
+            $pdf = Pdf::loadView('pdf.balita', compact('data', 'pemeriksaan'));
+        } elseif ($tipe === 'ibu') {
+            $data = IbuHamil::findOrFail($id);
+            $pemeriksaan = Pemeriksaan::where('ibu_hamil_id', $id)->latest()->first();
+            $pdf = Pdf::loadView('pdf.ibu', compact('data', 'pemeriksaan'));
+        } else {
+            abort(404);
+        }
+
+        return $pdf->download("laporan-$tipe-$id.pdf");
     }
 }
 
