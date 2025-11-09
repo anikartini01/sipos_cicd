@@ -27,7 +27,11 @@
                 </div>
             </div>
         @empty
-            <p class="text-gray-500 mt-4 text-center">Belum ada jadwal tersedia.</p>
+            {{-- tambahkan icon --}}
+            <div class="flex justify-center items-center">
+                <i class="fa-solid fa-calendar-xmark text-5xl  text-gray-500"></i>
+            </div>
+            <p class="text-gray-500 mt-2 text-lg text-center">Belum ada jadwal tersedia.</p>
         @endforelse
     </div>
 </x-app-main>
