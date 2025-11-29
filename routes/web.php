@@ -86,6 +86,7 @@ Route::controller(LaporanController::class)->group(function () {
 });
 // Ekspor PDF
 Route::get('/laporan/pdf/{tipe}/{id}', [LaporanController::class, 'exportPdf'])
+    ->middleware('auth')
     ->name('laporan.pdf');
 
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
