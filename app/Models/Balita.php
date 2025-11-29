@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Pemeriksaan;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -14,4 +15,12 @@ class Balita extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    // di App\Models\Balita
+
+    public function pemeriksaans()
+    {
+        return $this->hasMany(Pemeriksaan::class, 'balita_id');
+    }
+
 }

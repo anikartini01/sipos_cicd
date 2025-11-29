@@ -6,11 +6,13 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PesertaController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RiwayatController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserManageController;
 use App\Http\Controllers\PemeriksaanController;
-use App\Http\Controllers\JadwalPosyanduController;
-use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\JadwalPosyanduController;
 
 
 // register view
@@ -91,3 +93,23 @@ Route::get('/laporan/pdf/{tipe}/{id}', [LaporanController::class, 'exportPdf'])
 
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 
+// Riwayat Pemeriksaan
+Route::get('/riwayat', [RiwayatController::class, 'index'])
+    ->middleware('auth')
+    ->name('pengguna.riwayat');
+
+Route::middleware(['auth', 'role:kader'])->group(function () {
+    // view pengguna
+    Route::get('/admin/pengguna', [UserManageController::class, 'index'])
+        ->name('admin.pengguna.index');
+
+    Route::get('/admin/pengguna/create', [UserManageController::class, 'create'])
+        ->name('admin.pengguna.create');
+
+    Route::post('/admin/pengguna/store', [UserManageController::class, 'store'])
+        ->name('admin.pengguna.store');
+
+    Route::delete('/admin/pengguna/{id}', [UserManageController::class, 'destroy'])
+        ->name('admin.pengguna.destroy');
+
+});

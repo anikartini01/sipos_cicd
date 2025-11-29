@@ -19,28 +19,23 @@ class DashboardController extends Controller
             "user" => Auth::user(),
 
             // Total Balita 
-            "totalBalita" => Balita::where('user_id', Auth::id())->get(),
+            "totalBalita" => Balita::count(),
             // Chart
-            "totalGiziBaik" => Pemeriksaan::where("user_id", Auth::id())
-                ->where("status_gizi", "Gizi Baik")
+            "totalGiziBaik" => Pemeriksaan::where("status_gizi", "Gizi Baik")
                 ->count(),
 
-            "totalGiziBuruk" => Pemeriksaan::where("user_id", Auth::id())
-                ->where("status_gizi", "Gizi Buruk")
+            "totalGiziBuruk" => Pemeriksaan::where("status_gizi", "Gizi Buruk")
                 ->count(),
 
-            "totalStunting" => Pemeriksaan::where("user_id", Auth::id())
-                ->where("status_gizi", "Stunting")
+            "totalStunting" => Pemeriksaan::where("status_gizi", "Stunting")
                 ->count(),
 
             // Chart
-            "totalIbuHamil" => IbuHamil::where("user_id", Auth::id())->get(),
-            "totalKondisiBaik" => Pemeriksaan::where("user_id", Auth::id())
-                ->where("status_ibu", "Kondisi Baik")
+            "totalIbuHamil" => IbuHamil::count(),
+            "totalKondisiBaik" => Pemeriksaan::where("status_ibu", "Kondisi Baik")
                 ->count(),
 
-            "totalKondisiAnemia" => Pemeriksaan::where("user_id", Auth::id())
-                ->where("status_ibu", "Anemia")
+            "totalKondisiAnemia" => Pemeriksaan::where("status_ibu", "Anemia")
                 ->count(),
 
             //jadwal

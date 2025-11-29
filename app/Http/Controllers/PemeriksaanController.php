@@ -15,7 +15,7 @@ class PemeriksaanController extends Controller
     {
         // ambil data jadwal
         $jadwals = JadwalPosyandu::all();
-        $pemeriksaans = Pemeriksaan::where('user_id', Auth::id())->get();
+        $pemeriksaans = Pemeriksaan::all();
         return view('kader.pemeriksaan', compact('pemeriksaans', 'jadwals'));
     }
     public function create()

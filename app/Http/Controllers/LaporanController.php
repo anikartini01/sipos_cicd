@@ -53,8 +53,13 @@ class LaporanController extends Controller
     {
         if ($tipe === 'balita') {
             $data = Balita::findOrFail($id);
-            $pemeriksaan = Pemeriksaan::where('balita_id', $id)->latest()->first();
+            // sangat penting
+            // if ($user = Auth::user() && $user->role === 'pengguna' && $data->user_id !== $user->id()) 
+            if (auth()->user()->role === 'pengguna' && $data->user_id !== auth()->id()) {
+                abort(403, 'Anda tidak memiliki akses ke data ini.');
+            }
 
+            $pemeriksaan = Pemeriksaan::where('balita_id', $id)->latest()->first();
             return response()->json([
                 'data' => [
                     'nama' => $data->nama_balita,
@@ -75,8 +80,12 @@ class LaporanController extends Controller
 
         if ($tipe === 'ibu') {
             $data = IbuHamil::findOrFail($id);
-            $pemeriksaan = Pemeriksaan::where('ibu_hamil_id', $id)->latest()->first();
+            // penting untuk progres validasi 
+            if (auth()->user()->role === 'pengguna' && $data->user_id !== auth()->id()) {
+                abort(403, 'Anda tidak memiliki akses ke data ini.');
+            }
 
+            $pemeriksaan = Pemeriksaan::where('ibu_hamil_id', $id)->latest()->first();
             return response()->json([
                 'data' => [
                     'nama' => $data->nama_ibu_hamil,
@@ -116,7 +125,6 @@ class LaporanController extends Controller
         // return $pdf->download("laporan-$tipe-$id.pdf");
         return $pdf->stream("laporan-$tipe-$id.pdf");
     }
-
 }
 
 

@@ -14,8 +14,8 @@ class ProfileController extends Controller
     public function index()
     {
         $profiles = Auth::user();
-        $totalBalita = Balita::where('user_id', $profiles->id)->get();
-        $totalIbuHamil = IbuHamil::where('user_id', $profiles->id)->get();
+        $totalBalita = Balita::get();
+        $totalIbuHamil = IbuHamil::get();
 
         $totalPeserta = $totalBalita->count() + $totalIbuHamil->count();
 

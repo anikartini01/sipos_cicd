@@ -130,6 +130,18 @@
                             </div>
                         </div>
                     </div>
+                    <div class="mb-3">
+                        <label for="user_id" class="form-label">Pemilik (Pengguna)</label>
+                        <select name="user_id" id="user_id" class="form-select" required>
+                            <option value="" disabled selected>-- Pilih Pengguna --</option>
+                            @foreach ($users as $user)
+                                <option value="{{ $user->id }}">
+                                    {{ $user->name }} ({{ $user->email }})
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
                 </div>
 
                 <!-- Form Ibu Hamil -->
@@ -194,6 +206,17 @@
                                     placeholder="Masukkan alamat lengkap" required></textarea>
                             </div>
                         </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="user_id" class="form-label">Pemilik (Pengguna)</label>
+                        <select name="user_id" id="user_id" class="form-select required">
+                            <option value="" disabled selected>-- Pilih Pengguna --</option>
+                            @foreach ($users as $user)
+                                <option value="{{ $user->id }}">
+                                    {{ $user->name }} ({{ $user->email }})
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
 

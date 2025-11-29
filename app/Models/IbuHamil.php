@@ -13,4 +13,10 @@ class IbuHamil extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function pemeriksaans()
+    {
+        return $this->hasMany(Pemeriksaan::class, 'ibu_hamil_id');
+    }
+
 }

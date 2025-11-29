@@ -3,9 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Balita;
+use App\Models\IbuHamil;
+use App\Models\Pemeriksaan;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -15,6 +18,17 @@ class User extends Authenticatable
     {
         return $this->hasMany(Pemeriksaan::class);
     }
+
+    public function balitas()
+    {
+        return $this->hasMany(Balita::class, 'user_id');
+    }
+
+    public function ibu_hamils()
+    {
+        return $this->hasMany(IbuHamil::class, 'user_id');
+    }
+
 
     /**
      * The attributes that are mass assignable.
