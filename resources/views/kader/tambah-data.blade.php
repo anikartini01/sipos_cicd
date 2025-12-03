@@ -387,7 +387,7 @@
                         Batal
                     </a>
                     <button type="submit"
-                        class="px-8 py-3 bg-button hover:bg-buttonhover bg-blue-600 hover:bg-blue-700 transition-all duration-300 text-white font-bold rounded-xl flex items-center justify-center shadow-lg hover:shadow-blue-500/30 transform hover:-translate-y-1">
+                        class="px-8 py-3 bg-button hover:bg-buttonhover transition-all duration-300 text-white font-bold rounded-xl flex items-center justify-center shadow-lg hover:shadow-blue-500/30 transform hover:-translate-y-1">
                         <i class="fas fa-save mr-2"></i> Simpan Data
                     </button>
                 </div>
