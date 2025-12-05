@@ -3,6 +3,7 @@
 use App\Http\Controllers\ViewData;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PesertaController;
 use App\Http\Controllers\ProfileController;
@@ -79,6 +80,11 @@ Route::delete('/jadwal/{id}', [JadwalPosyanduController::class, 'destroy'])->nam
 
 Route::get('/jadwal/detail/{slug}', [JadwalPosyanduController::class, 'show'])->name('jadwal.show');
 
+// jangan make class
+
+// Route::get('/artikel', function () {
+//     return view('kader.artikel');
+// });
 
 // Ekspor Laporan 
 Route::controller(LaporanController::class)->group(function () {
@@ -116,4 +122,18 @@ Route::middleware(['auth', 'role:kader'])->group(function () {
     Route::delete('/admin/pengguna/{id}', [UserManageController::class, 'destroy'])
         ->name('admin.pengguna.destroy');
 
+});
+
+// pengguna artikel
+Route::get('/artikel', [ArtikelController::class, 'index'])->name('artikel.index');
+Route::get('/artikel/baca/{id}', [ArtikelController::class, 'show'])->name('artikel.show');
+
+// Route untuk Admin (Mengelola Artikel) -> Sebaiknya dibungkus middleware auth/admin
+Route::prefix('kader')->name('kader.')->group(function () {
+    Route::get('/artikel', [ArtikelController::class, 'adminIndex'])->name('artikel.index');
+    Route::get('/artikel/create', [ArtikelController::class, 'create'])->name('artikel.create');
+    Route::post('/artikel', [ArtikelController::class, 'store'])->name('artikel.store');
+    Route::get('/artikel/{id}/edit', [ArtikelController::class, 'edit'])->name('artikel.edit');
+    Route::put('/artikel/{id}', [ArtikelController::class, 'update'])->name('artikel.update');
+    Route::delete('/artikel/{id}', [ArtikelController::class, 'destroy'])->name('artikel.destroy');
 });

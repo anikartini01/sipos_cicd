@@ -61,6 +61,12 @@
                 <i class="fas fa-user-plus w-5"></i>
                 <span class="ml-3">Manajemen Pengguna</span>
             </a>
+            <a href="{{ url('kader/artikel') }}"
+                class="flex items-center p-3 border-l-4 
+                {{ request()->is('artikel') ? 'border-white bg-posyanduu text-white' : 'border-transparent text-gray-300 hover:bg-posyanduu hover:text-white' }}">
+                <i class="fa-solid fa-circle-info"></i>
+                <span class="ml-3">Artikel</span>
+            </a>
         @else
             <!-- Menu untuk pengguna -->
             <a href="{{ url('/jadwall') }}"
@@ -74,6 +80,12 @@
                 {{ request()->is('riwayat') ? 'border-white bg-posyanduu text-white' : 'border-transparent text-gray-300 hover:bg-posyanduu hover:text-white' }}">
                 <i class="fa-solid fa-chart-line"></i>
                 <span class="ml-3">Riwayat Pemeriksaan</span>
+            </a>
+            <a href="{{ url('/artikel') }}"
+                class="flex items-center p-3 border-l-4 
+                {{ request()->is('artikel') ? 'border-white bg-posyanduu text-white' : 'border-transparent text-gray-300 hover:bg-posyanduu hover:text-white' }}">
+                <i class="fa-solid fa-circle-info"></i>
+                <span class="ml-3">Artikel</span>
             </a>
         @endif
     </nav>

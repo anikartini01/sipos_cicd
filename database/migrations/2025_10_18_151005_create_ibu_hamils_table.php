@@ -9,7 +9,9 @@ return new class extends Migration {
     {
         Schema::create('ibu_hamils', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
+
+            // $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('nik_ibu_hamil', 20)->unique();
             $table->string('nama_ibu_hamil');
             $table->string('nama_suami');

@@ -9,7 +9,8 @@ return new class extends Migration {
     {
         Schema::create('balitas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
+            // $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('nik', 16)->unique();
             $table->string('nama_balita');
             $table->integer('usia_tahun');
