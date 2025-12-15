@@ -18,11 +18,11 @@ class JadwalPosyandu extends Model
         parent::boot();
 
         static::creating(function ($model) {
-            $model->slug = Str::slug($model->keterangan);
+            $model->slug = Str::slug($model->keterangan . '-' . Str::random(5));
         });
 
         static::updating(function ($model) {
-            $model->slug = Str::slug($model->keterangan);
+            $model->slug = Str::slug($model->keterangan . '-' . Str::random(5));
         });
     }
 }

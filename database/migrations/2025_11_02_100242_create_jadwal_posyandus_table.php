@@ -13,6 +13,7 @@ return new class extends Migration {
         Schema::create('jadwal_posyandus', function (Blueprint $table) {
             $table->id();
             $table->string('keterangan');
+            // $table->string('slug');
             $table->string('lokasi');
             $table->dateTime('waktu_mulai');
             $table->dateTime('waktu_selesai');

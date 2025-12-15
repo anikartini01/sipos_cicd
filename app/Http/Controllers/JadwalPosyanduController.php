@@ -29,7 +29,7 @@ class JadwalPosyanduController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'keterangan' => 'required|string|max:255|unique:jadwal_posyandus,keterangan',
+            'keterangan' => 'required|string|max:255|',
             'lokasi' => 'required|string|max:255',
             'waktu_mulai' => 'required|date',
             'waktu_selesai' => 'required|date|after:waktu_mulai',

@@ -63,7 +63,7 @@
             </a>
             <a href="{{ url('kader/artikel') }}"
                 class="flex items-center p-3 border-l-4 
-                {{ request()->is('artikel') ? 'border-white bg-posyanduu text-white' : 'border-transparent text-gray-300 hover:bg-posyanduu hover:text-white' }}">
+                {{ request()->is('kader/artikel') ? 'border-white bg-posyanduu text-white' : 'border-transparent text-gray-300 hover:bg-posyanduu hover:text-white' }}">
                 <i class="fa-solid fa-circle-info"></i>
                 <span class="ml-3">Artikel</span>
             </a>
@@ -81,7 +81,7 @@
                 <i class="fa-solid fa-chart-line"></i>
                 <span class="ml-3">Riwayat Pemeriksaan</span>
             </a>
-            <a href="{{ url('/artikel') }}"
+            <a href="{{ url('artikel') }}"
                 class="flex items-center p-3 border-l-4 
                 {{ request()->is('artikel') ? 'border-white bg-posyanduu text-white' : 'border-transparent text-gray-300 hover:bg-posyanduu hover:text-white' }}">
                 <i class="fa-solid fa-circle-info"></i>

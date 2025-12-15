@@ -139,7 +139,7 @@
                                                         class="fas fa-calendar-day text-gray-400 group-focus-within:text-blue-500"></i>
                                                 </div>
                                                 <input type="number" id="usia_bulan" name="usia_bulan"
-                                                    min="0" max="11" value="{{ old('usia_bulan') }}"
+                                                    min="0" max="12" value="{{ old('usia_bulan') }}"
                                                     class="w-full pl-10 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:border-blue-500 transition-all"
                                                     placeholder="0">
                                             </div>
