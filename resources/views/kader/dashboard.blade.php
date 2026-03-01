@@ -6,7 +6,7 @@
     <main class="ml-2 md:ml-2 relative min-h-screen bg-gray-50/50 pb-10">
 
         <div class="gsap-header opacity-0 translate-y-5 mb-8 pt-4">
-            <h1 class="text-3xl font-extrabold text-gray-800 tracking-tight">Dashboard Overview</h1>
+            <h1 class="text-3xl font-extrabold text-gray-800 tracking-tight">Dashboard Kader</h1>
             <div class="flex items-center text-gray-500 mt-1">
                 <span class="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></span>
                 <p>Halo <span class="text-indigo-600 font-semibold">{{ Auth::user()->name }}</span>, selamat datang
